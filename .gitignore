@@ -2,3 +2,4 @@
 build
 .gradle
 resources/screenshots/*.*
+/src/test/resources/chromedriver

@@ -5,9 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -17,19 +16,17 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
 
 public class TestExample {
-    public static final String SELENIUM_HOST = "http://localhost:4444/wd/hub";
     private static WebDriver driver;
 
     @BeforeSuite
-    public void startBrowser() throws MalformedURLException {
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("browserName", "chrome");
-        driver = new RemoteWebDriver(new URL(SELENIUM_HOST), caps);
+    public void startBrowser() {
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/chromedriver");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
 
@@ -50,6 +47,7 @@ public class TestExample {
         Assert.assertTrue(true);
     }
 
+    //todo is this needed when using allure or reportportal?
     private void takeScreenshot(){
         var camera = (TakesScreenshot)driver;
         File screenshot = camera.getScreenshotAs(OutputType.FILE);
