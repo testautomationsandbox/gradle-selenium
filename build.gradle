@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0-alpha-3'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.13.8'
     testCompile group: 'org.testng', name: 'testng', version: '7.3.0'
 }
