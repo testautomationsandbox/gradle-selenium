@@ -1,8 +1,8 @@
 package tech.fertavora.gradle.tests;
 
-import com.google.common.io.Files;
-import io.qameta.allure.*;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -15,11 +15,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import tech.fertavora.pageobjects.opencart.HomePage;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 public class OpenCartTests {
