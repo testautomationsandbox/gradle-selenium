@@ -1,25 +1,30 @@
 package tech.fertavora.gradle.tests;
 
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeSuite;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class BaseTest {
-    private static final String WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
-    private static final String USER_DIR = System.getProperty("user.dir");
-    private static final String SRC_TEST_RESOURCES_CHROMEDRIVER = "/src/test/resources/chromedriver";
+    private static final String BROWSER_NAME = "chrome";
+    public static final String SELENIUM_HOST = "http://localhost:4444/wd/hub";
     private static final String ARGUMENT_START_MAXIMIZED = "start-maximized";
+    private static final String ARGUMENT_HEADLESS = "--headless";
 
     protected WebDriver driver;
 
     @BeforeSuite
-    @Step("Browser start")
-    public void startBrowser() {
-        System.setProperty(WEBDRIVER_CHROME_DRIVER, USER_DIR + SRC_TEST_RESOURCES_CHROMEDRIVER);
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(ARGUMENT_START_MAXIMIZED);
-        driver = new ChromeDriver(options);
+    public void startBrowser() throws MalformedURLException {
+        DesiredCapabilities caps = new DesiredCapabilities();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments(ARGUMENT_START_MAXIMIZED);
+        chromeOptions.addArguments(ARGUMENT_HEADLESS);
+        caps.setCapability("browserName", BROWSER_NAME);
+        driver = new RemoteWebDriver(new URL(SELENIUM_HOST), chromeOptions);
     }
+
 }

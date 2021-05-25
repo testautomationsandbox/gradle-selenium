@@ -21,16 +21,18 @@ repositories {
 
 dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.13.8'
+    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.13.9'
     testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
 }
 
 apply plugin: 'io.qameta.allure'
 
 allure {
-    version = '2.13.8'
+    aspectjVersion = "1.9.2" // this is to have allure annotations working with java 11
+    autoconfigure = true
+    version = '2.13.9'
     useTestNG {
-        version = '2.13.8'
+        version = '2.13.9'
     }
 }
 
