@@ -5,3 +5,4 @@ resources/screenshots/*.*
 /src/test/resources/chromedriver
 /.allure/
 /src/test/resources/geckodriver
+/.settings/

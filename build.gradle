@@ -20,9 +20,10 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.13.9'
-    testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.13.9'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.4.3'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
 }
 
 apply plugin: 'io.qameta.allure'
@@ -38,4 +39,5 @@ allure {
 
 test {
     useTestNG()
+//    allureReport()
 }

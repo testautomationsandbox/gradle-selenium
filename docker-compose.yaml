@@ -17,9 +17,11 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-      - START_XVFB=false
+#      - START_XVFB=false
       - SCREEN_WIDTH=1920
       - SCREEN_HEIGHT=1080
+      - SCREEN_DEPTH=24
+      - SCREEN_DPI=96
 
   firefox:
     image: selenium/node-firefox:3.141.59-20210422
@@ -30,6 +32,8 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-      - START_XVFB=false
+#      - START_XVFB=false
       - SCREEN_WIDTH=1920
       - SCREEN_HEIGHT=1080
+      - SCREEN_DEPTH=24
+      - SCREEN_DPI=96
