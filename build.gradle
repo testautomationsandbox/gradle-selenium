@@ -1,5 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:<latest>"
+    }
+}
+
 plugins {
     id 'java'
+    id "io.qameta.allure" version "2.8.1"
 }
 
 group 'tech.fertavora'
@@ -10,10 +20,24 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0-alpha-3'
-    testCompile group: 'org.testng', name: 'testng', version: '7.3.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.13.9'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.4.3'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.1.0'
+}
+
+apply plugin: 'io.qameta.allure'
+
+allure {
+    aspectjVersion = "1.9.2" // this is to have allure annotations working with java 11
+    autoconfigure = true
+    version = '2.13.9'
+    useTestNG {
+        version = '2.13.9'
+    }
 }
 
 test {
     useTestNG()
+//    allureReport()
 }
