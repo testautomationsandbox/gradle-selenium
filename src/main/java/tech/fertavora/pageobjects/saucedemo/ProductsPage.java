@@ -1,12 +1,12 @@
 package tech.fertavora.pageobjects.saucedemo;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import tech.fertavora.pageobjects.common.BasePage;
 
-public class HomePage extends BasePage {
+public class ProductsPage extends BasePage {
 
     private final By buttonAddBackpack = By.cssSelector("[data-test=\"add-to-cart-sauce-labs-backpack\"]");
     private final By buttonAddBoltTShirt = By.cssSelector("[data-test=\"add-to-cart-sauce-labs-bolt-t-shirt\"]");
@@ -30,22 +30,25 @@ public class HomePage extends BasePage {
     private final By linkOnesie = By.linkText("Sauce Labs Onesie");
     private final By linkAllThingsTShirt = By.linkText("Test.allTheThings() T-Shirt (Red)");
 
-    public HomePage(WebDriver driver){
+    public ProductsPage(WebDriver driver){
         super(driver);
     }
 
-    public HomePage getTo(){
+    @Step("Test runner loads the Products Page")
+    public ProductsPage getTo(){
         driver.get(System.getenv("ENV_BASE_URL"));
         setCookie(driver,"session-username", "standard_user");
         driver.get(System.getenv("ENV_BASE_URL")  + "/inventory.html");
         return this;
     }
 
+    @Step("Test runner gets the product link with text {0}")
     private WebElement getProductLinkByIndex(int linkIndex){
         waitForVisibility(allProductLinks);
         return driver.findElements(allProductLinks).get(linkIndex);
     }
 
+    @Step("Test runner gets the link text by index {0}")
     public String getLinkTextByIndex(int linkIndex){
         return getProductLinkByIndex(linkIndex).getText();
     }

@@ -12,6 +12,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import tech.fertavora.pageobjects.saucedemo.LoginPage;
 
 public class BaseTest {
     private static final String ARGUMENT_START_MAXIMIZED = "start-maximized";
@@ -19,6 +21,7 @@ public class BaseTest {
     private static final String ARGUMENT_WINDOWS_SIZE = "--window-size=1920,1080";
 
     protected static WebDriver driver;
+    protected LoginPage loginPage;
 
     @Step("Browser is opened.")
     @BeforeClass
@@ -31,6 +34,12 @@ public class BaseTest {
                 ARGUMENT_HEADLESS
         );
         driver = new ChromeDriver(chromeOptions);
+        loginPage = new LoginPage(driver);
+    }
+
+    @BeforeMethod
+    public void loadSaucedemo(){
+        loginPage.getTo();
     }
 
     @Step("Browser is closed.")
@@ -42,6 +51,7 @@ public class BaseTest {
     @AfterMethod
     protected void attachScreenshot(){
         takeScreenshot();
+        driver.manage().deleteAllCookies();
     }
 
     @Attachment

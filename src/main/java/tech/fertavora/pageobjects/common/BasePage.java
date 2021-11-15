@@ -8,9 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
-    public static final int TIME_OUT_IN_SECONDS = 2;
+    public static final long TIME_OUT_IN_SECONDS = 2;
     protected WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriverWait wait;
 
     public BasePage(WebDriver driver){
         this.driver = driver;
