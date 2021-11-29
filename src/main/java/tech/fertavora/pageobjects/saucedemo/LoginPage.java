@@ -21,25 +21,29 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("User enters the username: {0}")
-    public LoginPage enterUsername(String username) {
-        waitForVisibility(inputUsername).sendKeys(username);
-        return this;
-    }
-
-    @Step("User enters the password")
-    public LoginPage enterPassword(String password) {
-        waitForVisibility(inputPassword).sendKeys(password);
-        return this;
-    }
-
-    @Step("User clicks the LogIn button")
-    public void clickButtonLogin(){
-        waitForVisibility(buttonLogin).click();
+    @Step("The user signs into the app as {0}")
+    public void signIn(String username, String password){
+        this.enterUsername(username)
+            .enterPassword(password)
+            .clickButtonLogin();
     }
 
     @Step("Test runner gets the error message text")
     public String getErrorMessage(){
         return waitForVisibility(textErrorMessage).getText();
+    }
+
+    private LoginPage enterUsername(String username) {
+        waitForVisibility(inputUsername).sendKeys(username);
+        return this;
+    }
+
+    private LoginPage enterPassword(String password) {
+        waitForVisibility(inputPassword).sendKeys(password);
+        return this;
+    }
+
+    private void clickButtonLogin(){
+        waitForVisibility(buttonLogin).click();
     }
 }

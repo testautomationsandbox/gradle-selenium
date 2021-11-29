@@ -3,6 +3,7 @@ package tech.fertavora.gradle.tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -52,6 +53,8 @@ public class BaseTest {
     protected void attachScreenshot(){
         takeScreenshot();
         driver.manage().deleteAllCookies();
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
+        javascriptExecutor.executeScript("window.localStorage.clear();");
     }
 
     @Attachment
@@ -60,7 +63,7 @@ public class BaseTest {
         return camera.getScreenshotAs(OutputType.BYTES);
     }
 
-    @Step("Assert text")
+    @Step("Verify actual text matches expected text")
     protected void assertText(String actual, String expected){
         Assert.assertEquals(actual, expected);
     }

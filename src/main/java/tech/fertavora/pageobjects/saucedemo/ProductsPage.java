@@ -30,6 +30,8 @@ public class ProductsPage extends BasePage {
     private final By linkOnesie = By.linkText("Sauce Labs Onesie");
     private final By linkAllThingsTShirt = By.linkText("Test.allTheThings() T-Shirt (Red)");
 
+    private final By linkShoppingCart = By.cssSelector("a[class=\"shopping_cart_link\"]");
+
     public ProductsPage(WebDriver driver){
         super(driver);
     }
@@ -42,14 +44,28 @@ public class ProductsPage extends BasePage {
         return this;
     }
 
-    @Step("Test runner gets the product link with text {0}")
+    @Step("Test runner gets the product link by index {0}")
     private WebElement getProductLinkByIndex(int linkIndex){
         waitForVisibility(allProductLinks);
         return driver.findElements(allProductLinks).get(linkIndex);
     }
 
-    @Step("Test runner gets the link text by index {0}")
+    @Step("Test runner gets the product link text by index {0}")
     public String getLinkTextByIndex(int linkIndex){
         return getProductLinkByIndex(linkIndex).getText();
+    }
+
+    @Step("Users adds the backpack to cart")
+    public void clickButtonAddBackpack(){
+        waitForClickable(buttonAddBackpack).click();
+    }
+
+    @Step("Test runner gets the amount of products in cart")
+    public String getProductsAmountInCart(){
+        return driver.findElement(linkShoppingCart).getText();
+    }
+
+    public String getProductsAmountInCartFromLocalStorage(){
+        return getKeyValueFromLocalStorage("cart-contents");
     }
 }

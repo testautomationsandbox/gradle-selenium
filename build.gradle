@@ -38,6 +38,9 @@ allure {
 }
 
 test {
+    testLogging {
+        showStandardStreams = true
+    }
     useTestNG()
 //    allureReport()
 }

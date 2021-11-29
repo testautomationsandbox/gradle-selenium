@@ -1,9 +1,6 @@
 package tech.fertavora.pageobjects.common;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,8 +18,18 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
+    public WebElement waitForClickable(By by){
+        return wait.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
     protected void setCookie(WebDriver driver, String name, String value){
         Cookie cookie = new Cookie(name, value, "/");
         driver.manage().addCookie(cookie);
+    }
+
+    protected String getKeyValueFromLocalStorage(String key){
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
+        return (String) javascriptExecutor.executeScript(String.format(
+                "return window.localStorage.getItem('%s');", key));
     }
 }
