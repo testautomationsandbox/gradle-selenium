@@ -55,9 +55,21 @@ public class ProductsPage extends BasePage {
         return getProductLinkByIndex(linkIndex).getText();
     }
 
-    @Step("Users adds the backpack to cart")
+    @Step("Users clicks the backpack 'Add to cart' button")
     public void clickButtonAddBackpack(){
         waitForClickable(buttonAddBackpack).click();
+    }
+
+    @Step("Users clicks the backpack title")
+    public ProductDetailsPage clickLinkBackpack(){
+        waitForClickable(linkBackpack).click();
+        return new ProductDetailsPage(driver);
+    }
+
+    @Step("Users clicks the backpack image")
+    public ProductDetailsPage clickImageBackpack(){
+        waitForClickable(imageLinkBackpack).click();
+        return new ProductDetailsPage(driver);
     }
 
     @Step("Test runner gets the amount of products in cart")
