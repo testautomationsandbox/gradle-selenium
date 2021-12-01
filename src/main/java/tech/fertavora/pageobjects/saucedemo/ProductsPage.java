@@ -4,7 +4,11 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import tech.fertavora.pageobjects.common.BasePage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsPage extends BasePage {
 
@@ -23,14 +27,9 @@ public class ProductsPage extends BasePage {
     private final By imageLinkAllThingsTShirt = By.id("item_3_img_link");
 
     private final By allProductLinks = By.cssSelector("div[class=\"inventory_item_label\"] > a");
-    private final By linkBackpack = By.linkText("Sauce Labs Backpack");
-    private final By linkBikeLight = By.linkText("Sauce Labs Bike Light");
-    private final By linkBoltTShirt = By.linkText("Sauce Labs Bolt T-Shirt");
-    private final By linkJacket = By.linkText("Sauce Labs Fleece Jacket");
-    private final By linkOnesie = By.linkText("Sauce Labs Onesie");
-    private final By linkAllThingsTShirt = By.linkText("Test.allTheThings() T-Shirt (Red)");
-
+    private final By allProductPrices = By.cssSelector("div[class=\"inventory_item_price\"]");
     private final By linkShoppingCart = By.cssSelector("a[class=\"shopping_cart_link\"]");
+    private final By selectSorting = By.cssSelector("[data-test=\"product_sort_container\"]");
 
     public ProductsPage(WebDriver driver){
         super(driver);
@@ -55,6 +54,24 @@ public class ProductsPage extends BasePage {
         return getProductLinkByIndex(linkIndex).getText();
     }
 
+    @Step("Test runner gets list of products links texts")
+    public List<String> getAllProductLinks(){
+        return convertWebElementsToStrings(waitForAllVisibility(allProductLinks));
+    }
+
+    @Step("Test runner gets list of products prices")
+    public List<Double> getAllProductPrices(){
+        return convertStringsToDoubles(convertWebElementsToStrings(waitForAllVisibility(allProductPrices)));
+    }
+
+    private List<Double> convertStringsToDoubles(List<String> strings){
+        List<Double> doubles = new ArrayList<>();
+        for(String string : strings) {
+            doubles.add(Double.parseDouble(string.replace("$", "")));
+        }
+        return doubles;
+    }
+
     @Step("Users clicks the backpack 'Add to cart' button")
     public void clickButtonAddBackpack(){
         waitForClickable(buttonAddBackpack).click();
@@ -62,7 +79,7 @@ public class ProductsPage extends BasePage {
 
     @Step("Users clicks the backpack title")
     public ProductDetailsPage clickLinkBackpack(){
-        waitForClickable(linkBackpack).click();
+        clickLink("Sauce Labs Backpack");
         return new ProductDetailsPage(driver);
     }
 
@@ -79,5 +96,11 @@ public class ProductsPage extends BasePage {
 
     public String getProductsAmountInCartFromLocalStorage(){
         return getKeyValueFromLocalStorage("cart-contents");
+    }
+
+    @Step("User selects {0} from sorting drop down")
+    public void selectSorting(String option){
+        Select sorting = new Select(waitForVisibility(selectSorting));
+        sorting.selectByVisibleText(option);
     }
 }

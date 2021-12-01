@@ -7,13 +7,13 @@ import tech.fertavora.pageobjects.saucedemo.ProductsPage;
 
 @Epic("SauceDemo Tests")
 @Feature("User Authentication")
+@Link(name = "STORY-1", type="myLink")
 public class LoginTests extends BaseTest {
     private ProductsPage productsPage;
 
     @Story("Successfull authentication")
     @TmsLink("TC-1")
     @Issue("BUG-1")
-    @Link(name = "STORY-1", type="myLink")
     @Test(description = "User can succesfully sign in and lands in homepage.")
     public void successfulLogin() {
         loginPage.signIn("standard_user","secret_sauce");
